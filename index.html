@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.0/dist/echarts.min.js"></script>
+
+    <title>RAD SYSTEM</title>
+</head>
+<body>
+
+    <section>
+        <div class="div-holder">
+            <div class="div-content-1">
+                <p id="date"></p>
+                <p id="time"></p>
+                <div id="chart" style="width: 450px; height: 450px;"></div>
+            </div>
+            <div class="div-content-1 prime">
+                <form action="{{ url for('predict')}}" method="post">
+                    <input type="text" name="" placeholder="enter Day">
+                    <input type="text" name="" placeholder="Enter Location">
+                    <input type="text" name="" placeholder="Enter Road surface (1-10)">
+                    <input type="text" name="" placeholder="Enter Type of Road">
+                    <input type="text" name="" placeholder="Enter Weather">
+                </form>
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+
+    <script>
+         const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const d = new Date();
+        const date =  weekday[d.getDay()]+', '+d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getFullYear();
+        document.getElementById("date").innerHTML = date;
+
+        var time= d.getHours() + ":" + d.getMinutes(); //+ ":" + d.getSeconds()
+        document.getElementById("time").innerHTML = time;
+
+        // Initialize the chart container
+    var chart = echarts.init(document.getElementById('chart'));
+
+// Chart configuration
+var options = {
+  series: [
+    {
+      type: 'gauge',
+      startAngle: 360,
+      endAngle: 0,
+      color:'#300',
+      progress: {
+        show: true,
+        width: 30,
+        
+      },
+      axisLine: {
+        lineStyle: {
+          width: 35
+        }
+      },
+      axisTick: {
+        show: false
+      },
+      splitLine: {
+        length: 15,
+        lineStyle: {
+          width: 2,
+          color: 'auto'
+        }
+      },
+      pointer: {
+        show: false
+      },
+      axisLabel: {
+        distance: 5,
+        color: '#999',
+        fontSize: 10
+      },
+    detail: {
+        valueAnimation: true,
+        fontSize: 50,
+      },
+      data: [
+        { value: 50, name: 'Value' }
+      ],
+      min: 0,
+      max: 100,
+    }
+  ]
+};
+
+// Set the chart configuration and render the chart
+chart.setOption(options);
+        
+    </script>
+</body>
+</html>
